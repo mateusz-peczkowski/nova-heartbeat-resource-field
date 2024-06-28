@@ -47,20 +47,31 @@ export default {
     },
 
     methods: {
-        moment() {
-            return moment
-        },
         async fetchHeartbeats() {
             this.loading = true;
 
-            let {data} = await Nova.request().get(`/nova-vendor/nova-heartbeat-resource-field/heartbeats`, {
-                params: this.params,
-            });
+            let dataForm = {};
+
+            try {
+                let {data} = await Nova.request()
+                    .get(`/nova-vendor/nova-heartbeat-resource-field/heartbeats`, {
+                        params: this.params,
+                    })
+
+                dataForm = data;
+            } catch (error) {
+                let msg = error.response.statusText;
+
+                if (error.response.data && Array.isArray(error.response.data) && error.response.data.length > 0)
+                    msg = error.response.data[0];
+
+                return Nova.error(msg);
+            }
 
             this.loading = false;
 
-            if (typeof data === 'object' && data !== null)
-                this.data = data;
+            if (typeof dataForm === 'object' && dataForm !== null)
+                this.data = dataForm;
         },
     }
 }

@@ -21,6 +21,7 @@ class NovaHeartbeatResourceField extends Field
 
         $this->withMeta([
             'indexName' => null,
+            'interval'  => config('nova-heartbeat-resource-field.heartbeat_interval'),
         ]);
     }
 

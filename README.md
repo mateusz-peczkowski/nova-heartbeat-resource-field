@@ -9,31 +9,30 @@ On a listing/details there will be information who is currently editing and as w
 Package is made for Laravel Nova ^4.
 
 
-### Installation
+## Installation
 You can install the package via composer:
 
 ```bash
 composer require mateusz-peczkowski/nova-heartbeat-resource-field
 ```
 
-
+### Migrations
 After installation, you need to run the migration to create the table that will store the heartbeat data.
+
 ```bash
 php artisan migrate
 ```
 
+### Publish package (optional)
+Publish the configuration file to customize the settings of the package (check bellow for more details).
 
-----
-
-
-(optional) Publish the configuration file to customize the settings of the package (check bellow for more details).
 ```bash
 php artisan vendor:publish --provider="MateuszPeczkowski\NovaHeartbeatResourceField\HeartbeatResourceServiceProvider"
 ```
 
 
-#### Configuration
-The package provides a configuration file that allows you to customize the field. You can set the interval in milliseconds between the heartbeat checks and the timeout after which the resource will be considered as not being edited anymore.
+## Configuration
+The package provides a configuration file that allows you to customize the settings of the package.
 
 ```php
 return [
@@ -49,7 +48,9 @@ return [
 ```
 
 
-#### Usage
+## Usage
+
+### Nova Resource Field
 To install this field in your Nova resource, you need to add the following code to the `fields` method of your resource.
 
 ```php
@@ -59,8 +60,8 @@ NovaHeartbeatResourceField::make('Heartbeat')
     ->resourceId($this->id),
 ```
 
-
-And as well add trait to Nova resource model.
+### Nova Resource Trait
+Add this trait to your Nova resource
 
 ```php
 use MateuszPeczkowski\NovaHeartbeatResourceField\Traits\HasNovaHeartbeats;
@@ -71,8 +72,8 @@ class YourResource extends Resource
 }
 ```
 
-
-And one more on the model that you want to
+### Model Trait
+Add this trait to your Model
 
 ```php
 use MateuszPeczkowski\NovaHeartbeatResourceField\Traits\HasHeartbeats;
@@ -81,5 +82,12 @@ class YourModel extends Model
 {
     use HasHeartbeats;
 }
+```
+
+### Clearing expired heartbeats (recommended)
+In case of failure of removing the heartbeat, you can use the following command to remove all the heartbeats that are older than the timeout.
+
+```bash
+$schedule->command('heartbeat:clear-expired')->everyMinute();
 ```
 

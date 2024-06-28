@@ -2,11 +2,11 @@
 
 namespace MateuszPeczkowski\NovaHeartbeatResourceField\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Nova\Nova;
-use MateuszPeczkowski\NovaHeartbeatResourceField\Models\HeartbeatResource;
 
 class HeartbeatResourceController extends Controller
 {
@@ -21,7 +21,7 @@ class HeartbeatResourceController extends Controller
         $validationResult = $this->validateRequest($request);
 
         if ($validationResult['has_errors'] === true)
-            return response($validationResult['errors'], 400);
+            return response()->json($validationResult['errors'], 400);
 
         $model = $validationResult['model'];
 
@@ -35,25 +35,48 @@ class HeartbeatResourceController extends Controller
     }
 
     /*
-     * POST /heartbeat
-     * Create a new heartbeat
+     * POST /heartbeats
+     * Store or Update a heartbeat
      *
      * @param Request $request
      */
-    public function store(Request $request)
+    public function storeOrUpdate(Request $request)
     {
-    }
+        $validationResult = $this->validateRequest($request);
 
-    /*
-     * PUT /heartbeat/{heartbeatId}
-     * Update a heartbeat
-     *
-     * @param Request $request
-     * @param HeartbeatResource $heartbeatResource
-     */
-    public function update(Request $request, HeartbeatResource $heartbeatResource)
-    {
+        $authModel = Auth::guard(config('nova-heartbeat-resource-field.heartbeat_guard', (config('nova.guard') ?: null)))->user();
 
+        if (!$authModel) {
+            $validationResult['has_errors'] = true;
+            $validationResult['errors'][] = __('novaHeartbeatResourceField.errors.userUnauthenticated');
+        }
+
+        if ($validationResult['has_errors'] === true)
+            return response()->json($validationResult['errors'], 400);
+
+        $model = $validationResult['model'];
+
+        $heartBeatModel = $model
+            ->heartbeatResources()
+            ->first();
+
+        if ($heartBeatModel) {
+            if ($heartBeatModel->created_by === $authModel->id) {
+                $heartBeatModel->update([
+                    'updated_at' => Carbon::now(),
+                ]);
+            } else {
+                return response()->json([], 403);
+            }
+        } else {
+            $model
+                ->heartbeatResources()
+                ->create([
+                    'created_by' => $authModel->id,
+                ]);
+        }
+
+        return response()->json();
     }
 
     /*
@@ -70,11 +93,11 @@ class HeartbeatResourceController extends Controller
 
         if (!$authModel) {
             $validationResult['has_errors'] = true;
-            $validationResult['errors']['user'] = 'unauthenticated';
+            $validationResult['errors'][] = __('novaHeartbeatResourceField.errors.userUnauthenticated');
         }
 
         if ($validationResult['has_errors'] === true)
-            return response($validationResult['errors'], 400);
+            return response()->json($validationResult['errors'], 400);
 
         $model = $validationResult['model'];
 
@@ -96,16 +119,16 @@ class HeartbeatResourceController extends Controller
         $errors = [];
 
         if (empty($resourceId))
-            $errors['resourceId'] = 'required';
+            $errors[] = __('novaHeartbeatResourceField.errors.resourceIdRequired');
 
         if (empty($resourceName))
-            $errors['resourceName'] = 'required';
+            $errors[] = __('novaHeartbeatResourceField.errors.resourceNameRequired');
 
         if (!empty($resourceName)) {
             $resourceClass = Nova::resourceForKey($resourceName);
 
             if (empty($resourceClass)) {
-                $errors['resourceName'] = 'invalid_name';
+                $errors[] = __('novaHeartbeatResourceField.errors.resourceNameInvalid');
             } else {
                 $modelClass = $resourceClass::$model;
 
@@ -116,10 +139,10 @@ class HeartbeatResourceController extends Controller
                 }
 
                 if (empty($model))
-                    $errors['resourceId'] = 'not_found';
+                    $errors[] = __('novaHeartbeatResourceField.errors.resourceIdNotFound');
 
                 if (!empty($model) && !method_exists($modelClass, 'heartbeatResources'))
-                    $errors['resourceId'] = 'not_found';
+                    $errors[] = __('novaHeartbeatResourceField.errors.resourceIdNotFound');
             }
         }
 

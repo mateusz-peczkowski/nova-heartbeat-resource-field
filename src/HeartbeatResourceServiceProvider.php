@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
+use MateuszPeczkowski\NovaHeartbeatResourceField\Commands\ClearExpiredHeartbeats;
 use Outl1ne\NovaTranslationsLoader\LoadsNovaTranslations;
 
 class HeartbeatResourceServiceProvider extends ServiceProvider
@@ -49,6 +50,10 @@ class HeartbeatResourceServiceProvider extends ServiceProvider
         // Load routes
         $this->app->booted(function () {
             $this->routes();
+
+            $this->commands([
+                ClearExpiredHeartbeats::class,
+            ]);
         });
     }
 

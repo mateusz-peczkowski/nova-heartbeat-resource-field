@@ -3,5 +3,10 @@
   "novaHeartbeatResourceField.resource_blocked_by": "By:",
   "novaHeartbeatResourceField.resource_blocked_from": "From:",
   "novaHeartbeatResourceField.resource_blocked_from_details": "from",
-  "novaHeartbeatResourceField.resource_currently_editing": "Currently editing:"
+  "novaHeartbeatResourceField.resource_currently_editing": "Currently editing:",
+  "novaHeartbeatResourceField.errors.resourceIdRequired": "Heartbeat Resource: Resource ID is required",
+  "novaHeartbeatResourceField.errors.resourceIdNotFound": "Heartbeat Resource: Resource ID not found",
+  "novaHeartbeatResourceField.errors.resourceNameRequired": "Heartbeat Resource: Resource Name is required",
+  "novaHeartbeatResourceField.errors.resourceNameInvalid": "Heartbeat Resource: Resource Name is invalid",
+  "novaHeartbeatResourceField.errors.userUnauthenticated": "Heartbeat Resource: User is not authenticated"
 }

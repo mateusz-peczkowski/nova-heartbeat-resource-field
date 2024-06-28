@@ -1,0 +1,7 @@
+{
+  "novaHeartbeatResourceField.resource_blocked": "Resource is blocked",
+  "novaHeartbeatResourceField.resource_blocked_by": "By:",
+  "novaHeartbeatResourceField.resource_blocked_from": "From:",
+  "novaHeartbeatResourceField.resource_blocked_from_details": "from",
+  "novaHeartbeatResourceField.resource_currently_editing": "Currently editing:"
+}

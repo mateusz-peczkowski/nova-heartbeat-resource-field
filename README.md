@@ -8,6 +8,7 @@ On a listing/details there will be information who is currently editing and as w
 
 Package is made for Laravel Nova ^4.
 
+
 ### Installation
 You can install the package via composer:
 
@@ -15,17 +16,21 @@ You can install the package via composer:
 composer require mateusz-peczkowski/nova-heartbeat-resource-field
 ```
 
+
 After installation, you need to run the migration to create the table that will store the heartbeat data.
 ```bash
 php artisan migrate
 ```
 
+
 ----
+
 
 (optional) Publish the configuration file to customize the settings of the package (check bellow for more details).
 ```bash
 php artisan vendor:publish --provider="MateuszPeczkowski\NovaHeartbeatResourceField\HeartbeatResourceServiceProvider"
 ```
+
 
 #### Configuration
 The package provides a configuration file that allows you to customize the field. You can set the interval in milliseconds between the heartbeat checks and the timeout after which the resource will be considered as not being edited anymore.
@@ -43,6 +48,7 @@ return [
 ];
 ```
 
+
 #### Usage
 To install this field in your Nova resource, you need to add the following code to the `fields` method of your resource.
 
@@ -52,6 +58,7 @@ use MateuszPeczkowski\NovaHeartbeatResourceField\NovaHeartbeatResourceField;
 NovaHeartbeatResourceField::make('Heartbeat')
     ->resourceId($this->id),
 ```
+
 
 And as well add trait to Nova resource model.
 
@@ -63,6 +70,7 @@ class YourResource extends Resource
     use HasNovaHeartbeats;
 }
 ```
+
 
 And one more on the model that you want to
 

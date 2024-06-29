@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2]
+
+- Fix composer.json to include correct provider
+
 ## [1.0.1]
 
 - Fix "dist" folder not being run as production in the previous release

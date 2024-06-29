@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1]
+
+- Fix "dist" folder not being run as production in the previous release
+
 ## [1.0.0] - Initial release
 
 - Field on index view to show who is editing

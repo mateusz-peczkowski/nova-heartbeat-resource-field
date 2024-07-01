@@ -9,8 +9,9 @@ On a listing/details there will be information who is currently editing and as w
 Package is made for Laravel Nova ^4.
 
 <p style="margin-top: 32px;">
-  <img src="https://github.com/mateusz-peczkowski/nova-heartbeat-resource-field/blob/master/media/img-1.png?raw=true" width="200" />
-  <img src="https://github.com/mateusz-peczkowski/nova-heartbeat-resource-field/blob/master/media/img-2.png?raw=true" width="150" />
+  <img src="https://github.com/mateusz-peczkowski/nova-heartbeat-resource-field/blob/master/media/img-1.png?raw=true" height="70" />
+  <img src="https://github.com/mateusz-peczkowski/nova-heartbeat-resource-field/blob/master/media/img-2.png?raw=true" height="70" />
+  <img src="https://github.com/mateusz-peczkowski/nova-heartbeat-resource-field/blob/master/media/img-3.png?raw=true" height="70" />
 </p>
 
 ## Installation

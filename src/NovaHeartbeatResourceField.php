@@ -20,8 +20,9 @@ class NovaHeartbeatResourceField extends Field
         parent::__construct($name, $attribute, $resolveCallback);
 
         $this->withMeta([
-            'indexName' => null,
-            'interval'  => config('nova-heartbeat-resource-field.heartbeat_interval'),
+            'indexName'   => null,
+            'interval'    => config('nova-heartbeat-resource-field.heartbeat_interval'),
+            'allowRetake' => false,
         ]);
     }
 
@@ -31,5 +32,13 @@ class NovaHeartbeatResourceField extends Field
     public function resourceId($id)
     {
         return $this->withMeta(['resourceId' => $id]);
+    }
+
+    /**
+     * Sets the resource id value displayed on the field.
+     **/
+    public function allowRetake()
+    {
+        return $this->withMeta(['allowRetake' => true]);
     }
 }

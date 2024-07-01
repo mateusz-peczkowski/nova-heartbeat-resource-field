@@ -42,7 +42,7 @@ The package provides a configuration file that allows you to customize the setti
 return [
     'table_name'            => 'nova_heartbeats',
     'heartbeat_model'       => \MateuszPeczkowski\NovaHeartbeatResourceField\Models\HeartbeatResource::class,
-    'heartbeat_interval'    => env('NOVA_HEARTBEAT_INTERVAL', 10 * 1000), // 10 seconds
+    'heartbeat_interval'    => env('NOVA_HEARTBEAT_INTERVAL', 5 * 1000), // 5 seconds
     'heartbeat_timeout'     => env('NOVA_HEARTBEAT_TIMEOUT', 60 * 1000), // 1 minute
     'heartbeat_guard'       => 'web',
     'heartbeat_guard_name'  => 'name',
@@ -63,6 +63,18 @@ use MateuszPeczkowski\NovaHeartbeatResourceField\NovaHeartbeatResourceField;
 NovaHeartbeatResourceField::make('Heartbeat')
     ->resourceId($this->id),
 ```
+
+Optionally you can allow to retake the resource by adding the following code
+
+```php
+use MateuszPeczkowski\NovaHeartbeatResourceField\NovaHeartbeatResourceField;
+
+NovaHeartbeatResourceField::make('Heartbeat')
+    ->resourceId($this->id)
+    ->allowRetake(),
+```
+
+Then on details view you will have additional button to retake the resource.
 
 ### Nova Resource Trait
 Add this trait to your Nova resource

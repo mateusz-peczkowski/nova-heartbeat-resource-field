@@ -109,6 +109,44 @@ class HeartbeatResourceController extends Controller
         return response()->json();
     }
 
+    /*
+     * PATCH /heartbeats
+     * Retake resource
+     *
+     * @param Request $request
+     */
+    public function retake(Request $request)
+    {
+        $validationResult = $this->validateRequest($request);
+
+        $authModel = Auth::guard(config('nova-heartbeat-resource-field.heartbeat_guard', (config('nova.guard') ?: null)))->user();
+
+        if (!$authModel) {
+            $validationResult['has_errors'] = true;
+            $validationResult['errors'][] = __('novaHeartbeatResourceField.errors.userUnauthenticated');
+        }
+
+        if ($validationResult['has_errors'] === true)
+            return response()->json($validationResult['errors'], 400);
+
+        $model = $validationResult['model'];
+
+        $model
+            ->heartbeatResources()
+            ->create([
+                'created_by' => $authModel->id,
+            ]);
+
+        $model
+            ->heartbeatResources()
+            ->where('created_by', '!=', $authModel->id)
+            ->delete();
+
+        return response()->json([
+            'redirect_url' => '/resources/' . $request->get('resourceName') . '/' . $request->get('resourceId') . '/edit',
+        ]);
+    }
+
     //
 
     private function validateRequest(Request $request)

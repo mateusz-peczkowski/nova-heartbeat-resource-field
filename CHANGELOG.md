@@ -2,9 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.3] - In progress
+## [1.0.3]
 
-- Reorganize media files 
+- Reorganize media files
+- Add support for "retake" button on details view. Current editor will get 403 on next heartbeat.
 
 ## [1.0.2]
 

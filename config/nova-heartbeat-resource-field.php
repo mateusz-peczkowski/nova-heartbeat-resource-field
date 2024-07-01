@@ -18,7 +18,7 @@ return [
      \ Interval
      \ The interval in milliseconds for how often to update the heartbeat.
      */
-    'heartbeat_interval'    => env('NOVA_HEARTBEAT_INTERVAL', 10 * 1000), // 10 seconds
+    'heartbeat_interval'    => env('NOVA_HEARTBEAT_INTERVAL', 5 * 1000), // 5 seconds
 
     /*
      \ Timeout

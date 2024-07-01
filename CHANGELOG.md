@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.4]
+
+- Fix optional allowRetake not being respected
+
 ## [1.0.3]
 
 - Reorganize media files

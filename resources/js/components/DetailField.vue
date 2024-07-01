@@ -7,7 +7,7 @@
             <img :src="data.created_by_avatar_url" :alt="data.created_by_name" class="rounded-full w-8 h-8">
             <strong class="pl-3">{{ data.created_by_name }}</strong>
             <span class="pl-1">({{ __('novaHeartbeatResourceField.resource_blocked_from_details') }} {{ dateFrom }})</span>
-            <p class="pl-1">
+            <p class="pl-1" v-if="field.allowRetake">
                 -
                 <button v-on:click.prevent="showModal = true;" class="border text-left appearance-none cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 relative disabled:cursor-not-allowed inline-flex items-center justify-center border-transparent text-primary-500 hover:[&:not(:disabled)]:text-primary-400">{{ __('novaHeartbeatResourceField.resource_blocked_retake') }}</button>
             </p>
@@ -15,7 +15,7 @@
 
         <teleport to="body">
             <Modal
-                :show="showModal"
+                :show="showModal && field.allowRetake"
                 role="dialog"
                 size="sm"
             >

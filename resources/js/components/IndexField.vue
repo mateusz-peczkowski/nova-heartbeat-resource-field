@@ -1,6 +1,6 @@
 <template>
-    <div class="w-8">
-        <Tooltip v-if="!loading && data && Object.keys(data).length">
+    <div class="w-8" v-if="!loading && data && Object.keys(data).length">
+        <Tooltip>
             <img :src="data.created_by_avatar_url" :alt="data.created_by_name" class="rounded-full w-8 h-8">
 
             <template #content>

@@ -1,6 +1,6 @@
 <template>
-    <div class="w-8" v-if="!loading && data && Object.keys(data).length">
-        <Tooltip>
+    <div>
+        <Tooltip v-if="!loading && data && Object.keys(data).length" class="w-8">
             <img :src="data.created_by_avatar_url" :alt="data.created_by_name" class="rounded-full w-8 h-8">
 
             <template #content>
@@ -42,7 +42,6 @@ export default {
     },
 
     mounted() {
-        this.$el.closest('td').classList.add('w-12');
         this.fetchHeartbeats();
     },
 

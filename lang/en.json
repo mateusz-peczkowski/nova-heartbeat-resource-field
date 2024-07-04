@@ -8,7 +8,7 @@
   "novaHeartbeatResourceField.resource_blocked_retake_modal_body": "Are you sure you want to retake this resource?<br /><br />The person who is currently editing this resource will lose their changes.",
   "novaHeartbeatResourceField.resource_blocked_retake_modal_cancel_button": "Cancel",
   "novaHeartbeatResourceField.resource_blocked_retake_modal_submit_button": "Retake",
-  "novaHeartbeatResourceField.resource_currently_editing": "Currently editing:",
+  "novaHeartbeatResourceField.resource_currently_editing": "Currently editing by:",
   "novaHeartbeatResourceField.errors.resourceIdRequired": "Heartbeat Resource: Resource ID is required",
   "novaHeartbeatResourceField.errors.resourceIdNotFound": "Heartbeat Resource: Resource ID not found",
   "novaHeartbeatResourceField.errors.resourceNameRequired": "Heartbeat Resource: Resource Name is required",

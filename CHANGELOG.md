@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.5]
+
+- Add width to parent element of index field to prevent not showing avatar if the field is too narrow
+
 ## [1.0.4]
 
 - Fix optional allowRetake not being respected

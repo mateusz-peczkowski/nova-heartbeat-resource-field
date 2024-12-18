@@ -6,7 +6,7 @@ This package provides a custom Nova field that will like heartbeat monitor watch
 
 On a listing/details there will be information who is currently editing and as well another person will be blocked from editing the same resource to not overlap changes.
 
-Package is made for Laravel Nova ^4.
+Package is made for Laravel Nova ^4 and it works as well with Laravel Nova ^5.
 
 <p style="margin-top: 32px;">
   <img src="https://github.com/mateusz-peczkowski/nova-heartbeat-resource-field/blob/master/media/img-1.png?raw=true" height="70" />
